@@ -11,10 +11,21 @@ export default function TabLayout() {
       screenOptions={{
         headerShown: false,
         tabBarButton: HapticTab,
+        tabBarActiveTintColor: "black",
+        tabBarInactiveTintColor: "grey",
+        tabBarLabelStyle: {
+          fontSize: 14,
+          marginTop: 5,
+        },
         tabBarStyle: Platform.select({
           ios: {
-            // Use a transparent background on iOS to show the blur effect
             position: "absolute",
+            paddingTop: 10,
+            height: 100,
+          },
+          android: {
+            paddingTop: 10,
+            height: 100,
           },
           default: {},
         }),
@@ -25,7 +36,7 @@ export default function TabLayout() {
         options={{
           title: "Home",
           tabBarIcon: ({ color }) => (
-            <Ionicons name="home-outline" size={24} color="black" />
+            <Ionicons name="home-outline" size={28} color={color} />
           ),
         }}
       />
@@ -34,7 +45,7 @@ export default function TabLayout() {
         options={{
           title: "Scanner",
           tabBarIcon: ({ color }) => (
-            <Ionicons name="scan-outline" size={24} color="black" />
+            <Ionicons name="scan-outline" size={28} color={color} />
           ),
         }}
       />
@@ -43,7 +54,7 @@ export default function TabLayout() {
         options={{
           title: "Settings",
           tabBarIcon: ({ color }) => (
-            <Ionicons name="settings-outline" size={24} color="black" />
+            <Ionicons name="settings-outline" size={28} color={color} />
           ),
         }}
       />
