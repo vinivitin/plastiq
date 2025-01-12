@@ -1,7 +1,6 @@
 import { Tabs } from "expo-router";
 import React from "react";
-import { Platform, StyleSheet } from "react-native";
-import { BlurView } from "expo-blur";
+import { StyleSheet, View, Platform } from "react-native";
 
 import { HapticTab } from "@/components/HapticTab";
 import Ionicons from "@expo/vector-icons/Ionicons";
@@ -15,38 +14,23 @@ export default function TabLayout() {
         tabBarInactiveTintColor: route.name === "scanner" ? "#A9A9A9" : "grey",
         headerShown: true,
         headerTitleAlign: "left",
-        headerStyle: {
-          backgroundColor: "transparent",
-          elevation: 0,
-          shadowOpacity: 0,
-          borderBottomWidth: 0,
-        },
-        headerTitleStyle: {
-          fontSize: 32,
-          fontWeight: "bold",
-        },
         tabBarLabelStyle: {
           fontSize: 14,
           marginTop: 5,
         },
-        tabBarBackground: () => (
-          <BlurView
-            tint="light"
-            intensity={30}
-            style={StyleSheet.absoluteFill}
-          />
-        ),
         tabBarStyle: Platform.select({
           ios: {
             position: "absolute",
             paddingTop: 10,
-            height: 100,
             borderTopWidth: 0,
+            height: 100,
+            backgroundColor: "#FFFFFF",
           },
           android: {
             paddingTop: 10,
             height: 100,
             borderTopWidth: 0,
+            backgroundColor: "#FFFFFF",
           },
           default: {},
         }),
@@ -56,6 +40,7 @@ export default function TabLayout() {
         name="index"
         options={{
           title: "Home",
+          headerShown: false,
           tabBarIcon: ({ color }) => (
             <Ionicons name="home-outline" size={28} color={color} />
           ),
@@ -67,15 +52,29 @@ export default function TabLayout() {
           title: "Scanner",
           lazy: false,
           headerShown: false,
-          tabBarIcon: ({ color }) => (
-            <Ionicons name="scan-outline" size={28} color={color} />
-          ),
+          tabBarStyle: { display: "none" },
+          tabBarButton: ({ onPress }) => {
+            return (
+              <HapticTab
+                onPress={onPress}
+                style={styles.scannerButtonContainer}
+              >
+                <View style={styles.scannerButtonControl}>
+                  <Ionicons name="scan-outline" size={28} color="white" />
+                </View>
+              </HapticTab>
+            );
+          },
         }}
       />
       <Tabs.Screen
         name="settings"
         options={{
           title: "Settings",
+          headerShown: false,
+          sceneStyle: {
+            backgroundColor: "#F7F7F7",
+          },
           tabBarIcon: ({ color }) => (
             <Ionicons name="settings-outline" size={28} color={color} />
           ),
@@ -84,3 +83,29 @@ export default function TabLayout() {
     </Tabs>
   );
 }
+
+const styles = StyleSheet.create({
+  scannerButtonContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    position: "relative",
+  },
+  scannerButtonControl: {
+    position: "absolute",
+    backgroundColor: "black",
+    borderRadius: 100,
+    height: 70,
+    width: 70,
+    justifyContent: "center",
+    alignItems: "center",
+    top: -35,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.29,
+    shadowRadius: 4.65,
+    elevation: 7,
+  },
+});
