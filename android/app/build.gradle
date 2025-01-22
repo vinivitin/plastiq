@@ -86,7 +86,7 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
-    namespace 'com.vinivitin.plastiq'
+    namespace "com.plastiq"
     defaultConfig {
         applicationId 'com.vinivitin.plastiq'
         minSdkVersion rootProject.ext.minSdkVersion
